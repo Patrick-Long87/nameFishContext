@@ -1,10 +1,12 @@
 import "./styles/score-board.css";
+import React from "react";
+import { useAppContext } from "../app.context";
+
 //  Where the score is presented
-const incorrectCount = 0;
-const correctCount = 0;
-const answersLeft = ["trout", "salmon", "shark", "tuna"];
 
 export const ScoreBoard = () => {
+  const {incorrectCount, correctCount, answersLeft} = useAppContext();
+  
   return (
     <div id="score-board">
       <div>Incorrect 🔻: {incorrectCount}</div>
