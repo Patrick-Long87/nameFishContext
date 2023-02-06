@@ -9,27 +9,26 @@ import "./Components/styles/final-score.css";
 
 const Game = () => {
   const { isGameOver } = useAppContext();
-  if(isGameOver){
-    return <FinalScore />
-  }else{
-    return <div>
-              <ScoreBoard /> 
-              <GameBoard />
-          </div>
+  if (isGameOver) {
+    return <FinalScore />;
+  } else {
+    return (
+      <div>
+        <ScoreBoard />
+        <GameBoard />
+      </div>
+    );
   }
-  
-                
-}
+};
 
 function App() {
-
   return (
     <AppProvider>
-        <header>
-          <Game/>
-        </header>
+      <header>
+        <Game />
+      </header>
     </AppProvider>
   );
-};
+}
 
 export default App;

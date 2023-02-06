@@ -5,13 +5,13 @@ import { useAppContext } from "../app.context";
 //  Where the score is presented
 
 export const ScoreBoard = () => {
-  const {incorrectCount, correctCount, answersLeft} = useAppContext();
-  
+  const { incorrectCount, correctCount, answersLeft,filteredFish } = useAppContext();
+
   return (
     <div id="score-board">
       <div>Incorrect 🔻: {incorrectCount}</div>
       <div id="choices-left">
-        {answersLeft.map((answer) => (
+        {filteredFish.map((answer) => (
           <div key={answer} className="choice">
             {answer}
           </div>
