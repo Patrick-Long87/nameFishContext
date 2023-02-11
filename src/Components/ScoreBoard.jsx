@@ -5,7 +5,7 @@ import { useAppContext } from "../app.context";
 //  Where the score is presented
 
 export const ScoreBoard = () => {
-  const { incorrectCount, correctCount, answersLeft,filteredFish } = useAppContext();
+  const { incorrectCount, correctCount, filteredFish } = useAppContext();
 
   return (
     <div id="score-board">
