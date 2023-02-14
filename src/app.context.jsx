@@ -1,8 +1,6 @@
 import React, { useContext, useState, createContext, useEffect } from "react";
 import { Images } from "../src/assets/images";
 
-const answersLeft = ["trout", "salmon", "shark", "tuna"];
-
 const initialFishes = [
   {
     name: "trout",
@@ -21,44 +19,29 @@ const initialFishes = [
     url: Images.shark,
   },
 ];
+let fishies = initialFishes.map((fish) => fish.name);
 
 const AppContext = createContext({});
 
 export const AppProvider = ({ children }) => {
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
-  const [guessCount, setGuessCount] = useState(1);
-  const [nextFishToName, setNextFishToName] = useState(initialFishes[0]);
-  const [isGameOver, setIsGameOver] = useState(false);
-  const [filteredFish, setFilteredFish] = useState(answersLeft);
+  const [guessCount, setGuessCount] = useState(0);
+  const nextFishToName = initialFishes[guessCount];
 
   const makeGuess = (guess) => {
+    fishies = fishies.filter((fish) => fish !== nextFishToName.name);
     setGuessCount((previousState) => previousState + 1);
-    guess == nextFishToName.name
-      ? setCorrectCount(correctCount + 1)
-      : setIncorrectCount(incorrectCount + 1);
-    setFish();
-    checkGameState();
-  };
-
-  const checkGameState = () => {
-    if (guessCount >= initialFishes.length) {
-      setIsGameOver(true);
-      return;
+    if (guess == nextFishToName.name) {
+      setCorrectCount(correctCount + 1);
+    } else {
+      setIncorrectCount(incorrectCount + 1);
     }
-    setNextFishToName(initialFishes[guessCount]);
-  };
-
-  const setFish = () => {
-    setFilteredFish(
-      filteredFish.filter((fish) => fish !== nextFishToName.name)
-    );
   };
 
   return (
     <AppContext.Provider
       value={{
-        isGameOver,
         makeGuess,
         incorrectCount,
         setIncorrectCount,
@@ -66,7 +49,8 @@ export const AppProvider = ({ children }) => {
         setCorrectCount,
         nextFishToName,
         guessCount,
-        filteredFish,
+        initialFishes,
+        fishies,
       }}
     >
       {children}
@@ -83,9 +67,8 @@ export const useAppContext = () => {
     setCorrectCount: context.setCorrectCount,
     nextFishToName: context.nextFishToName,
     guessCount: context.guessCount,
-    answersLeft: context.answersLeft,
     makeGuess: context.makeGuess,
-    isGameOver: context.isGameOver,
-    filteredFish: context.filteredFish,
+    fishies: context.fishies,
+    initialFishes: context.initialFishes,
   };
 };

@@ -8,8 +8,8 @@ import { ScoreBoard } from "./Components/ScoreBoard";
 import "./Components/styles/final-score.css";
 
 const Game = () => {
-  const { isGameOver } = useAppContext();
-  if (isGameOver) {
+  const { initialFishes, guessCount } = useAppContext();
+  if (guessCount >= initialFishes.length) {
     return <FinalScore />;
   } else {
     return (

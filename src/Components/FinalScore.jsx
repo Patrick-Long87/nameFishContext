@@ -9,7 +9,7 @@ export const FinalScore = () => {
       <div id="score">
         <p>{correctCount}</p>
         <hr />
-        <p>{guessCount - 1}</p>
+        <p>{guessCount}</p>
       </div>
     </div>
   );
