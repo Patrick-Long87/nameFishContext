@@ -19,7 +19,6 @@ const initialFishes = [
     url: Images.shark,
   },
 ];
-let fishies = initialFishes.map((fish) => fish.name);
 
 const AppContext = createContext({});
 
@@ -28,9 +27,9 @@ export const AppProvider = ({ children }) => {
   const [correctCount, setCorrectCount] = useState(0);
   const [guessCount, setGuessCount] = useState(0);
   const nextFishToName = initialFishes[guessCount];
+  const fishNames = initialFishes.slice(guessCount).map((fish) => fish.name);
 
   const makeGuess = (guess) => {
-    fishies = fishies.filter((fish) => fish !== nextFishToName.name);
     setGuessCount((previousState) => previousState + 1);
     if (guess == nextFishToName.name) {
       setCorrectCount(correctCount + 1);
@@ -50,7 +49,7 @@ export const AppProvider = ({ children }) => {
         nextFishToName,
         guessCount,
         initialFishes,
-        fishies,
+        fishNames,
       }}
     >
       {children}
@@ -68,7 +67,7 @@ export const useAppContext = () => {
     nextFishToName: context.nextFishToName,
     guessCount: context.guessCount,
     makeGuess: context.makeGuess,
-    fishies: context.fishies,
+    fishNames: context.fishNames,
     initialFishes: context.initialFishes,
   };
 };
